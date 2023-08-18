@@ -1,6 +1,6 @@
 import { DataSource } from "typeorm";
 import { santizedEnv } from "env";
-import { Question, User } from "@entities";
+import { Question, Tag, User } from "@entities";
 
 export const appDataSource = new DataSource({
   type: "mysql",
@@ -12,6 +12,6 @@ export const appDataSource = new DataSource({
   password: santizedEnv.DB_PASS,
 
   synchronize: santizedEnv.NODE_ENV === "development",
-  entities: [User, Question],
+  entities: [User, Tag, Question],
   logging: santizedEnv.NODE_ENV === "development",
 });

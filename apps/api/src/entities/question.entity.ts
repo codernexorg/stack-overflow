@@ -2,11 +2,14 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinTable,
+  ManyToMany,
   ManyToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from "typeorm";
 import { User } from "./user.entity";
+import { Tag } from "./tag.entity";
 
 @Entity()
 export class Question {
@@ -27,6 +30,12 @@ export class Question {
     onUpdate: "CASCADE",
   })
   user: User;
+
+  @ManyToMany(() => Tag, (tag) => tag.questions)
+  @JoinTable({
+    name: "questions_tags",
+  })
+  tags: Tag[];
 
   @CreateDateColumn()
   created_at: Date;

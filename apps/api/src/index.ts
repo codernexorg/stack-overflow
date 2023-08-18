@@ -1,3 +1,4 @@
+import "reflect-metadata";
 import express, { Application } from "express";
 import { appDataSource } from "orm.config";
 import { santizedEnv } from "env";
@@ -6,6 +7,8 @@ import cors from "cors";
 import { error } from "@middleware";
 import cookieParser from "cookie-parser";
 import { authRoutes, questionRoutes } from "@routes";
+import { seed } from "db/seed";
+import { tagRoutes } from "routes/tag";
 const mountServer = async (app: Application) => {
   /**
    * Enabling Cors
@@ -42,6 +45,16 @@ const mountServer = async (app: Application) => {
   app.use("/api/v1/user", userRoutes);
   app.use("/api/v1/auth", authRoutes);
   app.use("/api/v1/question", questionRoutes);
+  app.use("/api/v1/tags", tagRoutes);
+  app.use("/api/v1/db/seed", async (req, res) => {
+    seed()
+      .then(() => {
+        res.status(200).json({ message: "Seed Successfully Completed" });
+      })
+      .catch((err) => {
+        res.status(400).json(err);
+      });
+  });
   // Handling error during api call
   app.use(error);
 
