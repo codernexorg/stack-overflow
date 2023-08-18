@@ -1,5 +1,9 @@
 {
   "extends": "@codernex/tsconfig/react-library.json",
   "include": ["."],
+  "compilerOptions": {
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext"
+  },
   "exclude": ["dist", "build", "node_modules"]
 }
