@@ -1,0 +1,5 @@
+{
+    "name": "@codernex/schema",
+    "types": "./index.ts",
+    "main": "./index.ts"
+}
